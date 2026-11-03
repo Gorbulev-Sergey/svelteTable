@@ -7,8 +7,9 @@
 		email: 'sergify@rr.r',
 		status: 'go'
 	};
-
 	let row = $state(Object.values(rowJson));
+	let grows = $state([3, 2, 1, 1]);
+
 	function prevCell(array: string[], i: number) {
 		let v = array[i];
 		array.splice(i, 1);
@@ -28,7 +29,7 @@
 
 <div class="d-flex align-items-center bg-2 rounded-3 w-100">
 	{#each row as cell, i}
-		<div class="d-flex align-items-center gap-1 px-3 py-1" style="flex: {4 - i} {4 - i} 0%">
+		<div class="d-flex align-items-center gap-1 px-3 py-1" style="flex: {grows[i]} {grows[i]} 0%">
 			{cell}
 			<div class="d-flex align-items-center gap-0">
 				<button
@@ -49,6 +50,19 @@
 				>
 					<i class="bi bi-chevron-right"></i>
 				</button>
+				<button title="" class="btn btn-xs rounded-3 p-1" data-bs-toggle="menu">
+					{grows[i]}
+				</button>
+				<div class="menu border-0 rounded-3 shadow-sm">
+					{#each new Array(5) as _, j}
+						<button
+							class="menu-item fs-xs rounded-3"
+							onclick={() => {
+								grows[i] = j + 1;
+							}}>{j + 1}</button
+						>
+					{/each}
+				</div>
 			</div>
 		</div>
 	{/each}
