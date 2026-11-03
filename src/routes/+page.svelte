@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PageTitle from '#lib/components/PageTitle.svelte';
-	import Table from '#lib/components/Table.svelte';
+	import Table from '#lib/components/Table1.svelte';
 	import type { Snippet } from 'svelte';
 
 	interface ICell {

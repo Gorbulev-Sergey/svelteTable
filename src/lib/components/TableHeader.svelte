@@ -2,6 +2,8 @@
 	interface IProps {
 		data: any;
 		grows?: number[];
+		onClickPrev?: (i: number) => void;
+		onClickNext?: (i: number) => void;
 		_class?: string;
 		_style?: string;
 	}
@@ -9,6 +11,8 @@
 	let {
 		data,
 		grows = $bindable(Object.values(data).map((v) => 1)),
+		onClickPrev,
+		onClickNext,
 		_class = 'bg-2 px-3 py-1 fw-bold',
 		_style
 	}: IProps = $props();
@@ -40,6 +44,7 @@
 					onclick={() => {
 						prevCell(cells, i);
 						prevCell(grows, i);
+						onClickPrev?.(i);
 					}}
 				>
 					<i class="bi bi-chevron-left"></i>
@@ -50,6 +55,7 @@
 					onclick={() => {
 						nextCell(cells, i);
 						nextCell(grows, i);
+						onClickNext?.(i);
 					}}
 				>
 					<i class="bi bi-chevron-right"></i>
@@ -71,6 +77,11 @@
 						>
 					{/each}
 				</div>
+			</div>
+			<div class="flex-grow-1 d-flex align-items-center justify-content-end">
+				<button title="" class="btn-icon btn-xs rounded-3">
+					<i class="bi bi-chevron-expand"></i>
+				</button>
 			</div>
 		</div>
 	{/each}

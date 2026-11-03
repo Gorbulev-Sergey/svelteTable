@@ -1,6 +1,31 @@
 <script lang="ts">
 	import PageTitle from '#lib/components/PageTitle.svelte';
+	import Table from '#lib/components/Table.svelte';
 	import TableHeader from '#lib/components/TableHeader.svelte';
+	import TableRow from '#lib/components/TableRow.svelte';
+
+	let data = $state([
+		{
+			uid: crypto.randomUUID(),
+			name: 'Serge',
+			email: 'sergify@rr.r',
+			status: 'go'
+		},
+		{
+			uid: crypto.randomUUID(),
+			name: 'Serge',
+			email: 'sergify@rr.r',
+			status: 'go'
+		},
+		{
+			uid: crypto.randomUUID(),
+			name: 'Serge',
+			email: 'sergify@rr.r',
+			status: 'go'
+		}
+	]);
+	let titles = $state(['id', 'name', 'email', 'status']);
+	let grows = $state([2, 1, 1, 1]);
 
 	let rowJson = {
 		uid: crypto.randomUUID(),
@@ -9,7 +34,6 @@
 		status: 'go'
 	};
 	let row = $state(Object.values(rowJson));
-	let grows = $state([2, 1, 1, 1]);
 
 	function prevCell(array: any[], i: number) {
 		let v = array[i];
@@ -21,6 +45,8 @@
 		array.splice(i, 1);
 		array.splice(i === array.length ? 0 : i + 1, 0, v);
 	}
+
+	let changePosition: null | { i: number; direction: 'left' | 'right' } = $state(null);
 </script>
 
 <PageTitle>
@@ -71,4 +97,20 @@
 	{/each}
 </div>
 
-<TableHeader data={rowJson} {grows} _class={'bg-3 px-3 py-2 fw-bold'} />
+<div class=" rounded-3 overflow-hidden" hidden>
+	<TableHeader
+		data={rowJson}
+		{grows}
+		onClickPrev={(i) => {
+			changePosition = { i: i, direction: 'left' };
+		}}
+		onClickNext={(i) => {
+			changePosition = { i: i, direction: 'right' };
+		}}
+	/>
+	<TableRow data={rowJson} {grows} bind:changePosition />
+	<TableRow data={rowJson} {grows} bind:changePosition />
+	<TableRow data={rowJson} {grows} bind:changePosition />
+</div>
+
+<Table {data} {titles} {grows} />

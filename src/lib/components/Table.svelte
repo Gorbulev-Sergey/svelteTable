@@ -1,39 +1,34 @@
 <script lang="ts">
-	import Row from './Row.svelte';
+	import PageTitle from '#lib/components/PageTitle.svelte';
+	import TableHeader from '#lib/components/TableHeader.svelte';
+	import TableRow from '#lib/components/TableRow.svelte';
 
 	interface IProps {
-		tableTitle?: string;
-		rows: object[];
+		data: any[];
+		titles: string[];
 		grows?: number[];
-		titles?: string[];
-		sorts?: boolean[];
 	}
 
-	let clickedCell = $state(1);
-	let { tableTitle, rows, grows, titles, sorts }: IProps = $props();
+	let { data, titles, grows = $bindable(Object.values(data).map((v) => 1)) }: IProps = $props();
+
+	let rows = $state(Object.values(data));
+	let changePosition = $state<((i: number, direction: '-' | '+') => void)[]>([]);
 </script>
 
-<h4 class="px-1 mb-3">{tableTitle}</h4>
-<div class="rounded-3 overflow-hidden bg-1 bg-50 w-100 overflow-x-auto">
-	<Row
-		cells={titles}
+<PageTitle>
+	<i class="bi bi-chevron-right"></i>
+	<div class="bg-2 px-2 py-1 fs-sm rounded-3 text-uppercase ms-1">Строка</div>
+</PageTitle>
+
+<div class="rounded-3 overflow-hidden">
+	<TableHeader
+		data={titles}
 		{grows}
-		{sorts}
-		{clickedCell}
-		onSort={(i, clicks) => {
-			clickedCell = i;
-			if (clicks === 1)
-				rows = [...Object.values(rows)].sort((a, b) =>
-					Object.values(b)[i].localeCompare(Object.values(a)[i])
-				);
-			else if (clicks === 2)
-				rows = [...Object.values(rows)].sort((a, b) =>
-					Object.values(a)[i].localeCompare(Object.values(b)[i])
-				);
-		}}
-		_class="px-3 py-1 fw-bold bg-1 bg-70"
+		onClickPrev={(i) => changePosition?.forEach((v) => v(i, '-'))}
+		onClickNext={(i) => changePosition?.forEach((v) => v(i, '+'))}
 	/>
-	{#each rows as row}
-		<Row cells={Object.values(row)} {grows} _class="px-3 py-2" />
+
+	{#each rows as row, i}
+		<TableRow data={row} {grows} positionChanged={(fn) => (changePosition[i] = fn)} />
 	{/each}
 </div>
