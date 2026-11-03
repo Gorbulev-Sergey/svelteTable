@@ -9,7 +9,7 @@
 		status: 'go'
 	};
 	let row = $state(Object.values(rowJson));
-	let grows = $state([3, 2, 1, 1]);
+	let grows = $state([2, 1, 1, 1]);
 
 	function prevCell(array: any[], i: number) {
 		let v = array[i];
@@ -71,4 +71,4 @@
 	{/each}
 </div>
 
-<TableHeader data={rowJson} />
+<TableHeader data={rowJson} {grows} _class={'bg-3 px-3 py-2 fw-bold'} />

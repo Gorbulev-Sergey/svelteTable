@@ -2,9 +2,16 @@
 	interface IProps {
 		data: any;
 		grows?: number[];
+		_class?: string;
+		_style?: string;
 	}
 
-	let { data, grows = $bindable(Object.values(data).map((v) => 1)) }: IProps = $props();
+	let {
+		data,
+		grows = $bindable(Object.values(data).map((v) => 1)),
+		_class = 'bg-2 px-3 py-1 fw-bold',
+		_style
+	}: IProps = $props();
 
 	let cells = $state(Object.values(data));
 	function prevCell(array: any[], i: number) {
@@ -19,13 +26,16 @@
 	}
 </script>
 
-<div class="d-flex align-items-center bg-2 rounded-3 w-100">
+<div class="d-flex align-items-strech w-100">
 	{#each cells as cell, i}
-		<div class="d-flex align-items-center gap-1 px-3 py-1" style="flex: {grows[i]} {grows[i]} 0%">
+		<div
+			class="d-flex align-items-center gap-1 {_class}"
+			style="flex: {grows[i]} {grows[i]} 0%; {_style}"
+		>
 			{cell}
-			<div class="d-flex align-items-center gap-0">
+			<div class="d-flex align-items-center gap-0" style="gap:3px">
 				<button
-					title=""
+					title="вперёд"
 					class="btn btn-xs rounded-3 p-1"
 					onclick={() => {
 						prevCell(cells, i);
@@ -35,7 +45,7 @@
 					<i class="bi bi-chevron-left"></i>
 				</button>
 				<button
-					title=""
+					title="назад"
 					class="btn btn-xs rounded-3 p-1"
 					onclick={() => {
 						nextCell(cells, i);
@@ -44,7 +54,11 @@
 				>
 					<i class="bi bi-chevron-right"></i>
 				</button>
-				<button title="" class="btn btn-xs rounded-3 p-1" data-bs-toggle="menu">
+				<button
+					title="доля ширины таблицы"
+					class="btn btn-xs rounded-3 py-1 px-2"
+					data-bs-toggle="menu"
+				>
 					{grows[i]}
 				</button>
 				<div class="menu border-0 rounded-3 shadow-sm">
