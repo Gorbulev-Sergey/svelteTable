@@ -10,12 +10,12 @@
 	let row = $state(Object.values(rowJson));
 	let grows = $state([3, 2, 1, 1]);
 
-	function prevCell(array: string[], i: number) {
+	function prevCell(array: any[], i: number) {
 		let v = array[i];
 		array.splice(i, 1);
 		array.splice(i === 0 ? array.length : i - 1, 0, v);
 	}
-	function nextCell(array: string[], i: number) {
+	function nextCell(array: any[], i: number) {
 		let v = array[i];
 		array.splice(i, 1);
 		array.splice(i === array.length ? 0 : i + 1, 0, v);
@@ -37,6 +37,7 @@
 					class="btn btn-xs rounded-3 p-1"
 					onclick={() => {
 						prevCell(row, i);
+						prevCell(grows, i);
 					}}
 				>
 					<i class="bi bi-chevron-left"></i>
@@ -46,6 +47,7 @@
 					class="btn btn-xs rounded-3 p-1"
 					onclick={() => {
 						nextCell(row, i);
+						nextCell(grows, i);
 					}}
 				>
 					<i class="bi bi-chevron-right"></i>
@@ -54,7 +56,7 @@
 					{grows[i]}
 				</button>
 				<div class="menu border-0 rounded-3 shadow-sm">
-					{#each new Array(5) as _, j}
+					{#each new Array(10) as _, j}
 						<button
 							class="menu-item fs-xs rounded-3"
 							onclick={() => {
