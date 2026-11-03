@@ -1,5 +1,6 @@
 <script lang="ts">
 	import PageTitle from '#lib/components/PageTitle.svelte';
+	import TableHeader from '#lib/components/TableHeader.svelte';
 
 	let rowJson = {
 		uid: crypto.randomUUID(),
@@ -27,7 +28,7 @@
 	<div class="bg-2 px-2 py-1 fs-sm rounded-3 text-uppercase ms-1">Строка</div>
 </PageTitle>
 
-<div class="d-flex align-items-center bg-2 rounded-3 w-100">
+<div class="d-flex align-items-center bg-2 rounded-3 w-100" hidden>
 	{#each row as cell, i}
 		<div class="d-flex align-items-center gap-1 px-3 py-1" style="flex: {grows[i]} {grows[i]} 0%">
 			{cell}
@@ -56,12 +57,12 @@
 					{grows[i]}
 				</button>
 				<div class="menu border-0 rounded-3 shadow-sm">
-					{#each new Array(10) as _, j}
+					{#each new Array(11) as _, j}
 						<button
 							class="menu-item fs-xs rounded-3"
 							onclick={() => {
-								grows[i] = j + 1;
-							}}>{j + 1}</button
+								grows[i] = j;
+							}}>{j}</button
 						>
 					{/each}
 				</div>
@@ -69,3 +70,5 @@
 		</div>
 	{/each}
 </div>
+
+<TableHeader data={rowJson} {grows} />
