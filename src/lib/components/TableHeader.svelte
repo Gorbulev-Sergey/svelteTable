@@ -4,7 +4,7 @@
 		grows?: number[];
 	}
 
-	let { data, grows = Object.values(data).map((v) => 1) }: IProps = $props();
+	let { data, grows = $bindable(Object.values(data).map((v) => 1)) }: IProps = $props();
 
 	let cells = $state(Object.values(data));
 	function prevCell(array: any[], i: number) {

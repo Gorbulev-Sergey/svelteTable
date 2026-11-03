@@ -71,4 +71,4 @@
 	{/each}
 </div>
 
-<TableHeader data={rowJson} {grows} />
+<TableHeader data={rowJson} />
