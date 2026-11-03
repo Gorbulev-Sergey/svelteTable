@@ -23,12 +23,12 @@
 <div class="rounded-3 overflow-hidden">
 	<TableHeader
 		data={titles}
-		{grows}
+		bind:grows
 		onClickPrev={(i) => changePosition?.forEach((v) => v(i, '-'))}
 		onClickNext={(i) => changePosition?.forEach((v) => v(i, '+'))}
 	/>
 
 	{#each rows as row, i}
-		<TableRow data={row} {grows} positionChanged={(fn) => (changePosition[i] = fn)} />
+		<TableRow data={row} bind:grows positionChanged={(fn) => (changePosition[i] = fn)} />
 	{/each}
 </div>
