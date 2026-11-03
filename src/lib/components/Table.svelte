@@ -26,6 +26,9 @@
 		bind:grows
 		onClickPrev={(i) => changePosition?.forEach((v) => v(i, '-'))}
 		onClickNext={(i) => changePosition?.forEach((v) => v(i, '+'))}
+		onClickSort={(i) => {
+			console.log([...titles].sort((a, b) => b.localeCompare(a)));
+		}}
 	/>
 
 	{#each rows as row, i}

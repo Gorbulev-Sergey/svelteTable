@@ -4,6 +4,7 @@
 		grows?: number[];
 		onClickPrev?: (i: number) => void;
 		onClickNext?: (i: number) => void;
+		onClickSort?: (i: number) => void;
 		_class?: string;
 		_style?: string;
 	}
@@ -13,6 +14,7 @@
 		grows = $bindable(Object.values(data).map((v) => 1)),
 		onClickPrev,
 		onClickNext,
+		onClickSort,
 		_class = 'bg-2 px-3 py-1 fw-bold',
 		_style
 	}: IProps = $props();
@@ -79,7 +81,7 @@
 				</div>
 			</div>
 			<div class="flex-grow-1 d-flex align-items-center justify-content-end">
-				<button title="" class="btn-icon btn-xs rounded-3">
+				<button title="" class="btn-icon btn-xs rounded-3" onclick={() => onClickSort?.(i)}>
 					<i class="bi bi-chevron-expand"></i>
 				</button>
 			</div>
