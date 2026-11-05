@@ -48,7 +48,7 @@
 
 <style>
 	:global(:root) {
-		--bs-bg-body: light-dark(var(--bs-white), var(--bs-pewter-800));
-		--bs-bg-2: light-dark(var(--bs-gray-050), var(--bs-pewter-700));
+		--bs-bg-body: light-dark(var(--bs-white), var(--bs-gray-800));
+		--bs-bg-2: light-dark(var(--bs-gray-050), var(--bs-gray-700));
 	}
 </style>
