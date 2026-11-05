@@ -1,18 +1,22 @@
 <script lang="ts">
 	import PageTitle from '#lib/components/PageTitle.svelte';
 	import Table from '#lib/components/Table.svelte';
-	import { createRawSnippet } from 'svelte';
+	import { createRawSnippet, type Snippet } from 'svelte';
+
+	let button = (text: string) => {
+		return createRawSnippet(() => {
+			return {
+				render: () => `<button class='badge bg-info bg-10'>${text}</button>`
+			};
+		});
+	};
 
 	let data = $derived([
 		{
 			uid: crypto.randomUUID(),
 			name: 'Serge',
 			email: 'sergify@rr.r',
-			status: createRawSnippet(() => {
-				return {
-					render: () => `<div class='badge bg-info bg-10'>${new Date().toLocaleDateString()}</div>`
-				};
-			})
+			status: 'Вечер'
 		},
 		{
 			uid: crypto.randomUUID(),
@@ -24,10 +28,14 @@
 			uid: crypto.randomUUID(),
 			name: 'Max',
 			email: 'max@rr.r',
-			status: 'badge'
+			status: button('Свистай всех на палубу')
 		}
 	]);
 </script>
+
+{#snippet status(text: string)}
+	<button class="badge bg-info bg-10" onclick={() => {}}>{text}</button>
+{/snippet}
 
 <PageTitle>
 	<i class="bi bi-chevron-right"></i>
