@@ -7,9 +7,11 @@
 		data: any[];
 		titles?: string[];
 		grows?: number[];
+		_class: { table: string; header: string; row: string };
+		_style: { table: string; header: string; row: string };
 	}
 
-	let { title, data, titles, grows }: IProps = $props();
+	let { title, data, titles, grows, _class, _style }: IProps = $props();
 
 	let titlesState = $state(titles || Object.keys(data[0]).map((v) => v));
 	let dataState = $state(data.map((v) => Object.values(v)));
@@ -63,7 +65,7 @@
 
 <div>
 	<h4 class="ms-1 mb-3">{title}</h4>
-	<div class="rounded-3 overflow-hidden">
+	<div class="rounded-3 overflow-hidden {_class.table}" style={_style.table}>
 		<TableHeader
 			data={titlesState}
 			grows={growsState}
@@ -75,10 +77,12 @@
 				if (sortableCell.i != i) sortableCell = { i: i, value: 'down' };
 				else sortableCell = { i: i, value: sortableCell.value === 'down' ? 'up' : 'down' };
 			}}
+			_class={_class.header}
+			_style={_style.header}
 		/>
 
 		{#each sortedDataState as row, i}
-			<TableRow data={row} grows={growsState} />
+			<TableRow data={row} grows={growsState} _class={_class.row} _style={_style.row} />
 		{/each}
 	</div>
 </div>

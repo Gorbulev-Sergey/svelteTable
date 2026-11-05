@@ -56,11 +56,11 @@
 			<div class="flex-grow-1 d-flex align-items-center justify-content-end">
 				<button title="" class="btn-icon btn-xs rounded-3" onclick={() => onClickSort?.(i)}>
 					{#if sortableCell.i === i && sortableCell.value === 'down'}
-						<i class="bi bi-chevron-down"></i>
+						<i title="по убыванию" class="bi bi-chevron-down"></i>
 					{:else if sortableCell.i === i && sortableCell.value === 'up'}
-						<i class="bi bi-chevron-up"></i>
+						<i title="по возрастанию" class="bi bi-chevron-up"></i>
 					{:else}
-						<i class="bi bi-chevron-expand"></i>
+						<i title="сортировать" class="bi bi-chevron-expand"></i>
 					{/if}
 				</button>
 			</div>
