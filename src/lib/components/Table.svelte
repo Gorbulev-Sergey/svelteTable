@@ -1,39 +1,68 @@
 <script lang="ts">
-	import PageTitle from '#lib/components/PageTitle.svelte';
 	import TableHeader from '#lib/components/TableHeader.svelte';
 	import TableRow from '#lib/components/TableRow.svelte';
 
 	interface IProps {
 		title?: string;
 		data: any[];
-		titles: string[];
+		titles?: string[];
 		grows?: number[];
 	}
 
 	let {
 		title,
 		data,
-		titles,
-		grows = $bindable(Object.values(data).map((v) => 1))
+		titles = $bindable(Object.keys(data[0]).map((v) => v)),
+		grows = $bindable(new Array(data.length).fill(1))
 	}: IProps = $props();
 
-	let rows = $state(data.map((v) => Object.values(v)));
-	let changePosition = $state<((i: number, direction: '-' | '+') => void)[]>([]);
+	let array = $state(data.map((v) => Object.values(v)));
+
+	function onPrev(i: number, titles: string[], array: any[][]) {
+		if (i > 0) {
+			[titles[i], titles[i - 1]] = [titles[i - 1], titles[i]];
+			[grows[i], grows[i - 1]] = [grows[i - 1], grows[i]];
+			for (const row of array) {
+				[row[i], row[i - 1]] = [row[i - 1], row[i]];
+			}
+		} else {
+			[titles[i], titles[array.length]] = [titles[array.length], titles[i]];
+			[grows[i], grows[array.length]] = [grows[array.length], grows[i]];
+			for (const row of array) {
+				[row[i], row[array.length]] = [row[array.length], row[i]];
+			}
+		}
+	}
+	function onNext(i: number, titles: string[], array: any[][]) {
+		if (i > array.length - 1) {
+			[titles[i], titles[0]] = [titles[0], titles[i]];
+			[grows[i], grows[0]] = [grows[0], grows[i]];
+			for (const row of array) {
+				[row[i], row[0]] = [row[0], row[i]];
+			}
+		} else {
+			[titles[i], titles[i + 1]] = [titles[i + 1], titles[i]];
+			[grows[i], grows[i + 1]] = [grows[i + 1], grows[i]];
+			for (const row of array) {
+				[row[i], row[i + 1]] = [row[i + 1], row[i]];
+			}
+		}
+	}
 </script>
 
-<h4 class="ms-1 mb-3">{title}</h4>
-<div class="rounded-3 overflow-hidden">
-	<TableHeader
-		data={titles}
-		bind:grows
-		onClickPrev={(i) => changePosition?.forEach((v) => v(i, '-'))}
-		onClickNext={(i) => changePosition?.forEach((v) => v(i, '+'))}
-		onClickSort={(i) => {
-			console.log([...titles].sort((a, b) => b.localeCompare(a)));
-		}}
-	/>
+<div>
+	<h4 class="ms-1 mb-3">{title}</h4>
+	<div class="rounded-3 overflow-hidden">
+		<TableHeader
+			data={titles}
+			{grows}
+			onClickPrev={(i) => onPrev(i, titles, array)}
+			onClickNext={(i) => onNext(i, titles, array)}
+			onClickSort={(i) => {}}
+		/>
 
-	{#each rows as row, i}
-		<TableRow data={row} bind:grows positionChanged={(fn) => (changePosition[i] = fn)} />
-	{/each}
+		{#each array as row, i}
+			<TableRow data={row} {grows} />
+		{/each}
+	</div>
 </div>
