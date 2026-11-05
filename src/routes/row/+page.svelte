@@ -113,4 +113,4 @@
 	<TableRow data={rowJson} {grows} bind:changePosition />
 </div>
 
-<Table {data} {titles} bind:grows />
+<Table title="Пользователи" {data} {titles} bind:grows />

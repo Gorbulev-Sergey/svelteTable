@@ -4,12 +4,18 @@
 	import TableRow from '#lib/components/TableRow.svelte';
 
 	interface IProps {
+		title?: string;
 		data: any[];
 		titles: string[];
 		grows?: number[];
 	}
 
-	let { data, titles, grows = $bindable(Object.values(data).map((v) => 1)) }: IProps = $props();
+	let {
+		title,
+		data,
+		titles,
+		grows = $bindable(Object.values(data).map((v) => 1))
+	}: IProps = $props();
 
 	let rows = $state(Object.values(data));
 	let changePosition = $state<((i: number, direction: '-' | '+') => void)[]>([]);
@@ -20,6 +26,7 @@
 	<div class="bg-2 px-2 py-1 fs-sm rounded-3 text-uppercase ms-1">Строка</div>
 </PageTitle>
 
+<h4 class="ms-1 mb-3">{title}</h4>
 <div class="rounded-3 overflow-hidden">
 	<TableHeader
 		data={titles}
