@@ -1,32 +1,38 @@
 <script lang="ts">
 	import TableHeader from '#lib/components/TableHeader.svelte';
 	import TableRow from '#lib/components/TableRow.svelte';
+	import type { ITableFilter } from '#lib/models/ITableFilter.ts';
 
 	interface IProps {
 		title?: string;
 		data: any[];
 		titles?: string[];
 		grows?: number[];
-		_class: { table: string; header: string; row: string };
-		_style: { table: string; header: string; row: string };
+		_class?: { table?: string; header?: string; row?: string };
+		_style?: { table?: string; header?: string; row?: string };
 	}
 
 	let { title, data, titles, grows, _class, _style }: IProps = $props();
 
-	let titlesState = $state(titles || Object.keys(data[0]).map((v) => v));
 	let dataState = $state(data.map((v) => Object.values(v)));
+	let titlesState = $state(titles || Object.keys(data[0]).map((v) => v));
 	let growsState = $state(grows || Object.keys(dataState[0]).map((v) => 1));
 
-	let sortableCell: { i: number; value: 'up' | 'down' } = $state({ i: 0, value: 'down' });
-	let sortedDataState = $derived.by(() => {
-		if (sortableCell.value === 'down') {
+	let filter: ITableFilter = $state({
+		sort: {
+			i: 0,
+			direction: 'down'
+		}
+	});
+	let dataStateFiltered = $derived.by(() => {
+		if (filter.sort.direction === 'down') {
 			return [...dataState].sort((a, b) =>
-				String(a[sortableCell.i]).localeCompare(String(b[sortableCell.i]))
+				String(a[filter.sort.i]).localeCompare(String(b[filter.sort.i]))
 			);
 		}
-		if (sortableCell.value === 'up') {
+		if (filter.sort.direction === 'up') {
 			return [...dataState].sort((a, b) =>
-				String(b[sortableCell.i]).localeCompare(String(a[sortableCell.i]))
+				String(b[filter.sort.i]).localeCompare(String(a[filter.sort.i]))
 			);
 		}
 	});
@@ -65,24 +71,24 @@
 
 <div>
 	<h4 class="ms-1 mb-3">{title}</h4>
-	<div class="rounded-3 overflow-hidden {_class.table}" style={_style.table}>
+	<div class="rounded-3 overflow-hidden {_class?.table}" style={_style?.table}>
 		<TableHeader
 			data={titlesState}
 			grows={growsState}
-			{sortableCell}
+			{filter}
 			onClickPrev={(i) => onPrev(i, titlesState, dataState)}
 			onClickNext={(i) => onNext(i, titlesState, dataState)}
 			onChangeGrow={(i, value) => (growsState[i] = value)}
 			onClickSort={(i) => {
-				if (sortableCell.i != i) sortableCell = { i: i, value: 'down' };
-				else sortableCell = { i: i, value: sortableCell.value === 'down' ? 'up' : 'down' };
+				if (filter.sort.i != i) filter.sort = { i: i, direction: 'down' };
+				else filter.sort = { i: i, direction: filter.sort.direction === 'down' ? 'up' : 'down' };
 			}}
-			_class={_class.header}
-			_style={_style.header}
+			_class={_class?.header}
+			_style={_style?.header}
 		/>
 
-		{#each sortedDataState as row, i}
-			<TableRow data={row} grows={growsState} _class={_class.row} _style={_style.row} />
+		{#each dataStateFiltered as row, i}
+			<TableRow data={row} grows={growsState} _class={_class?.row} _style={_style?.row} />
 		{/each}
 	</div>
 </div>
