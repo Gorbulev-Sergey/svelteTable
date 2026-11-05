@@ -13,7 +13,7 @@
 		title,
 		data,
 		titles = $bindable(Object.keys(data[0]).map((v) => v)),
-		grows = $bindable(new Array(data.length).fill(1))
+		grows = $bindable(Object.keys(data[0]).map((v) => 1))
 	}: IProps = $props();
 
 	let array = $state(data.map((v) => Object.values(v)));

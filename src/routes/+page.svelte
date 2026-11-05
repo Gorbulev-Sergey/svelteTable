@@ -22,6 +22,8 @@
 			status: 'go'
 		}
 	];
+
+	let grows = $state([2, 1, 1, 1]);
 </script>
 
 <PageTitle>
