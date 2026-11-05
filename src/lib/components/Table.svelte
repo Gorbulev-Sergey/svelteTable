@@ -17,7 +17,7 @@
 	}: IProps = $props();
 
 	let dataState = $state(data.map((v) => Object.values(v)));
-	let growsState = $state(Object.keys(dataState[0]).map((v) => 1));
+	let growsState = $state(grows || Object.keys(dataState[0]).map((v) => 1));
 
 	function onPrev(i: number, titles: string[], array: any[][]) {
 		if (i > 0) {
@@ -60,6 +60,9 @@
 			onClickPrev={(i) => onPrev(i, titles, dataState)}
 			onClickNext={(i) => onNext(i, titles, dataState)}
 			onClickSort={(i) => {}}
+			onChangeGrow={(i, value) => {
+				growsState[i] = value;
+			}}
 		/>
 
 		{#each dataState as row, i}
