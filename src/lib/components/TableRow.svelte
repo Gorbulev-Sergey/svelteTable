@@ -15,7 +15,11 @@
 			class="d-flex align-items-center gap-1 text-wrap {_class}"
 			style="flex: {grows?.[i]} {grows?.[i]} 0%; {_style}"
 		>
-			{@html cell}
+			{#if typeof cell === 'string'}
+				{@html cell}
+			{:else}
+				{@render cell?.()}
+			{/if}
 		</div>
 	{/each}
 </div>

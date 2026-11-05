@@ -1,9 +1,32 @@
 <script lang="ts">
 	import PageTitle from '#lib/components/PageTitle.svelte';
 	import Table from '#lib/components/Table.svelte';
-	import { getData } from '#lib/remotes/fake.remote.ts';
+	import { createRawSnippet } from 'svelte';
 
-	let data = $derived(await getData());
+	let data = $derived([
+		{
+			uid: crypto.randomUUID(),
+			name: 'Serge',
+			email: 'sergify@rr.r',
+			status: createRawSnippet(() => {
+				return {
+					render: () => `<div class='badge bg-info bg-10'>${new Date().toLocaleDateString()}</div>`
+				};
+			})
+		},
+		{
+			uid: crypto.randomUUID(),
+			name: 'Helen',
+			email: 'helen@rr.r',
+			status: 'go'
+		},
+		{
+			uid: crypto.randomUUID(),
+			name: 'Max',
+			email: 'max@rr.r',
+			status: 'badge'
+		}
+	]);
 </script>
 
 <PageTitle>
