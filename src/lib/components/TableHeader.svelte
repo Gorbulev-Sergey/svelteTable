@@ -2,6 +2,7 @@
 	interface IProps {
 		data: any;
 		grows: number[];
+		sortableCell: { i: number; value: 'up' | 'down' };
 		onClickPrev?: (i: number) => void;
 		onClickNext?: (i: number) => void;
 		onChangeGrow?: (i: number, value: number) => void;
@@ -13,6 +14,7 @@
 	let {
 		data,
 		grows,
+		sortableCell,
 		onClickPrev,
 		onClickNext,
 		onChangeGrow,
@@ -53,7 +55,13 @@
 			</div>
 			<div class="flex-grow-1 d-flex align-items-center justify-content-end">
 				<button title="" class="btn-icon btn-xs rounded-3" onclick={() => onClickSort?.(i)}>
-					<i class="bi bi-chevron-expand"></i>
+					{#if sortableCell.i === i && sortableCell.value === 'down'}
+						<i class="bi bi-chevron-down"></i>
+					{:else if sortableCell.i === i && sortableCell.value === 'up'}
+						<i class="bi bi-chevron-up"></i>
+					{:else}
+						<i class="bi bi-chevron-expand"></i>
+					{/if}
 				</button>
 			</div>
 		</div>

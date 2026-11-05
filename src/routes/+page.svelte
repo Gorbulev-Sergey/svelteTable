@@ -11,14 +11,14 @@
 		},
 		{
 			uid: crypto.randomUUID(),
-			name: 'Serge',
-			email: 'sergify@rr.r',
+			name: 'Helen',
+			email: 'helen@rr.r',
 			status: 'go'
 		},
 		{
 			uid: crypto.randomUUID(),
-			name: 'Serge',
-			email: 'sergify@rr.r',
+			name: 'Max',
+			email: 'max@rr.r',
 			status: 'go'
 		}
 	];
@@ -31,9 +31,4 @@
 	<div class="bg-2 px-2 py-1 fs-sm rounded-3 text-uppercase ms-1">Главная</div>
 </PageTitle>
 
-<Table
-	title="Пользователи"
-	{data}
-	grows={[2, 1, 1, 1]}
-	titles={['uid', 'имя', 'email', 'статус']}
-/>
+<Table title="Пользователи" {data} grows={[2, 1, 1, 1]} />

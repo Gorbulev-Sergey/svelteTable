@@ -15,6 +15,20 @@
 	let dataState = $state(data.map((v) => Object.values(v)));
 	let growsState = $state(grows || Object.keys(dataState[0]).map((v) => 1));
 
+	let sortableCell: { i: number; value: 'up' | 'down' } = $state({ i: 0, value: 'down' });
+	let sortedDataState = $derived.by(() => {
+		if (sortableCell.value === 'down') {
+			return [...dataState].sort((a, b) =>
+				String(a[sortableCell.i]).localeCompare(String(b[sortableCell.i]))
+			);
+		}
+		if (sortableCell.value === 'up') {
+			return [...dataState].sort((a, b) =>
+				String(b[sortableCell.i]).localeCompare(String(a[sortableCell.i]))
+			);
+		}
+	});
+
 	function onPrev(i: number, titles: string[], array: any[][]) {
 		if (i > 0) {
 			[titles[i], titles[i - 1]] = [titles[i - 1], titles[i]];
@@ -53,13 +67,17 @@
 		<TableHeader
 			data={titlesState}
 			grows={growsState}
+			{sortableCell}
 			onClickPrev={(i) => onPrev(i, titlesState, dataState)}
 			onClickNext={(i) => onNext(i, titlesState, dataState)}
 			onChangeGrow={(i, value) => (growsState[i] = value)}
-			onClickSort={(i) => {}}
+			onClickSort={(i) => {
+				if (sortableCell.i != i) sortableCell = { i: i, value: 'down' };
+				else sortableCell = { i: i, value: sortableCell.value === 'down' ? 'up' : 'down' };
+			}}
 		/>
 
-		{#each dataState as row, i}
+		{#each sortedDataState as row, i}
 			<TableRow data={row} grows={growsState} />
 		{/each}
 	</div>
