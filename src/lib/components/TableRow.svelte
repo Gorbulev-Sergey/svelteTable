@@ -8,7 +8,7 @@
 
 	let {
 		data = $bindable(),
-		grows = $bindable([]),
+		grows = $bindable(),
 		_class = 'bg-1 px-3 py-1 bg-50',
 		_style
 	}: IProps = $props();

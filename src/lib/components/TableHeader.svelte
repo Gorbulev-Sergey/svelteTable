@@ -10,8 +10,8 @@
 	}
 
 	let {
-		data = $bindable([]),
-		grows = $bindable([]),
+		data = $bindable(),
+		grows = $bindable(),
 		onClickPrev,
 		onClickNext,
 		onClickSort,
@@ -39,7 +39,7 @@
 					class="btn btn-xs rounded-3 py-1 px-2"
 					data-bs-toggle="menu"
 				>
-					{grows[i]}
+					{grows?.[i]}
 				</button>
 				<div class="menu border-0 rounded-3 shadow-sm">
 					{#each new Array(11) as _, j}

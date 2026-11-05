@@ -55,14 +55,14 @@
 	<div class="rounded-3 overflow-hidden">
 		<TableHeader
 			data={titles}
-			{grows}
+			bind:grows
 			onClickPrev={(i) => onPrev(i, titles, array)}
 			onClickNext={(i) => onNext(i, titles, array)}
 			onClickSort={(i) => {}}
 		/>
 
 		{#each array as row, i}
-			<TableRow data={row} {grows} />
+			<TableRow data={row} bind:grows />
 		{/each}
 	</div>
 </div>
