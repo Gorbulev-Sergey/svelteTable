@@ -32,7 +32,7 @@
 			class="d-flex align-items-center gap-1 text-wrap {_class}"
 			style="flex: {grows?.[i]} {grows?.[i]} 0%; {_style}"
 		>
-			{cell}
+			{@html cell}
 			<div class="d-flex align-items-center gap-0" style="gap:3px">
 				<button title="вперёд" class="btn btn-xs rounded-3 p-1" onclick={() => onClickPrev?.(i)}>
 					<i class="bi bi-chevron-left"></i>

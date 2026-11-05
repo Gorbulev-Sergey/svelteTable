@@ -15,7 +15,7 @@
 			class="d-flex align-items-center gap-1 text-wrap {_class}"
 			style="flex: {grows?.[i]} {grows?.[i]} 0%; {_style}"
 		>
-			{cell}
+			{@html cell}
 		</div>
 	{/each}
 </div>

@@ -6,7 +6,7 @@ export const getData = query(async () => {
 			uid: crypto.randomUUID(),
 			name: 'Serge',
 			email: 'sergify@rr.r',
-			status: 'start'
+			status: "<div class='badge bg-info bg-20'>start</div>"
 		},
 		{
 			uid: crypto.randomUUID(),
