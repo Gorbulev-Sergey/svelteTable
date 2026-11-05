@@ -17,14 +17,9 @@
 		grows = $bindable(Object.values(data).map((v) => 1))
 	}: IProps = $props();
 
-	let rows = $state(Object.values(data));
+	let rows = $state(data.map((v) => Object.values(v)));
 	let changePosition = $state<((i: number, direction: '-' | '+') => void)[]>([]);
 </script>
-
-<PageTitle>
-	<i class="bi bi-chevron-right"></i>
-	<div class="bg-2 px-2 py-1 fs-sm rounded-3 text-uppercase ms-1">Строка</div>
-</PageTitle>
 
 <h4 class="ms-1 mb-3">{title}</h4>
 <div class="rounded-3 overflow-hidden">
