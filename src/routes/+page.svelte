@@ -31,4 +31,9 @@
 	<div class="bg-2 px-2 py-1 fs-sm rounded-3 text-uppercase ms-1">Главная</div>
 </PageTitle>
 
-<Table title="Пользователи" {data} grows={[2, 1, 1, 1]} />
+<Table
+	title="Пользователи"
+	{data}
+	grows={[2, 1, 1, 1]}
+	titles={['uid', 'имя', 'email', 'статус']}
+/>

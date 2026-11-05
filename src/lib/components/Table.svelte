@@ -9,13 +9,9 @@
 		grows?: number[];
 	}
 
-	let {
-		title,
-		data,
-		titles = $bindable(Object.keys(data[0]).map((v) => v)),
-		grows
-	}: IProps = $props();
+	let { title, data, titles, grows }: IProps = $props();
 
+	let titlesState = $state(titles || Object.keys(data[0]).map((v) => v));
 	let dataState = $state(data.map((v) => Object.values(v)));
 	let growsState = $state(grows || Object.keys(dataState[0]).map((v) => 1));
 
@@ -55,10 +51,10 @@
 	<h4 class="ms-1 mb-3">{title}</h4>
 	<div class="rounded-3 overflow-hidden">
 		<TableHeader
-			data={titles}
+			data={titlesState}
 			grows={growsState}
-			onClickPrev={(i) => onPrev(i, titles, dataState)}
-			onClickNext={(i) => onNext(i, titles, dataState)}
+			onClickPrev={(i) => onPrev(i, titlesState, dataState)}
+			onClickNext={(i) => onNext(i, titlesState, dataState)}
 			onChangeGrow={(i, value) => (growsState[i] = value)}
 			onClickSort={(i) => {}}
 		/>
