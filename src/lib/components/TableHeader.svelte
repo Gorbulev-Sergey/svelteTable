@@ -44,9 +44,9 @@
 					{grows?.[i]}
 				</button>
 				<div class="menu border-0 rounded-3 shadow-sm">
-					{#each new Array(11) as _, value}
-						<button class="menu-item fs-xs rounded-3" onclick={() => onChangeGrow?.(i, value)}>
-							{value}
+					{#each new Array(10) as _, value}
+						<button class="menu-item fs-xs rounded-3" onclick={() => onChangeGrow?.(i, value + 1)}>
+							{value + 1}
 						</button>
 					{/each}
 				</div>
