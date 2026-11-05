@@ -12,7 +12,7 @@
 <div class="d-flex align-items-strech w-100">
 	{#each data as cell, i}
 		<div
-			class="d-flex align-items-center gap-1 {_class}"
+			class="d-flex align-items-center gap-1 text-wrap {_class}"
 			style="flex: {grows?.[i]} {grows?.[i]} 0%; {_style}"
 		>
 			{cell}

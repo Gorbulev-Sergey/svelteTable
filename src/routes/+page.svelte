@@ -1,29 +1,9 @@
 <script lang="ts">
 	import PageTitle from '#lib/components/PageTitle.svelte';
 	import Table from '#lib/components/Table.svelte';
+	import { getData } from '#lib/remotes/fake.remote.ts';
 
-	let data = [
-		{
-			uid: crypto.randomUUID(),
-			name: 'Serge',
-			email: 'sergify@rr.r',
-			status: 'go'
-		},
-		{
-			uid: crypto.randomUUID(),
-			name: 'Helen',
-			email: 'helen@rr.r',
-			status: 'go'
-		},
-		{
-			uid: crypto.randomUUID(),
-			name: 'Max',
-			email: 'max@rr.r',
-			status: 'go'
-		}
-	];
-
-	let grows = $state([2, 1, 1, 1]);
+	let data = $derived(await getData());
 </script>
 
 <PageTitle>
@@ -31,4 +11,4 @@
 	<div class="bg-2 px-2 py-1 fs-sm rounded-3 text-uppercase ms-1">Главная</div>
 </PageTitle>
 
-<Table title="Пользователи" {data} grows={[2, 1, 1, 1]} />
+<Table title="Пользователи" {data} />
