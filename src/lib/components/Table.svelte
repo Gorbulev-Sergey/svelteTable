@@ -13,21 +13,22 @@
 		title,
 		data,
 		titles = $bindable(Object.keys(data[0]).map((v) => v)),
-		grows = $bindable(Object.keys(data[0]).map((v) => 1))
+		grows
 	}: IProps = $props();
 
-	let array = $state(data.map((v) => Object.values(v)));
+	let dataState = $state(data.map((v) => Object.values(v)));
+	let growsState = $state(Object.keys(dataState[0]).map((v) => 1));
 
 	function onPrev(i: number, titles: string[], array: any[][]) {
 		if (i > 0) {
 			[titles[i], titles[i - 1]] = [titles[i - 1], titles[i]];
-			[grows[i], grows[i - 1]] = [grows[i - 1], grows[i]];
+			[growsState[i], growsState[i - 1]] = [growsState[i - 1], growsState[i]];
 			for (const row of array) {
 				[row[i], row[i - 1]] = [row[i - 1], row[i]];
 			}
 		} else {
 			[titles[i], titles[array.length]] = [titles[array.length], titles[i]];
-			[grows[i], grows[array.length]] = [grows[array.length], grows[i]];
+			[growsState[i], growsState[array.length]] = [growsState[array.length], growsState[i]];
 			for (const row of array) {
 				[row[i], row[array.length]] = [row[array.length], row[i]];
 			}
@@ -36,13 +37,13 @@
 	function onNext(i: number, titles: string[], array: any[][]) {
 		if (i > array.length - 1) {
 			[titles[i], titles[0]] = [titles[0], titles[i]];
-			[grows[i], grows[0]] = [grows[0], grows[i]];
+			[growsState[i], growsState[0]] = [growsState[0], growsState[i]];
 			for (const row of array) {
 				[row[i], row[0]] = [row[0], row[i]];
 			}
 		} else {
 			[titles[i], titles[i + 1]] = [titles[i + 1], titles[i]];
-			[grows[i], grows[i + 1]] = [grows[i + 1], grows[i]];
+			[growsState[i], growsState[i + 1]] = [growsState[i + 1], growsState[i]];
 			for (const row of array) {
 				[row[i], row[i + 1]] = [row[i + 1], row[i]];
 			}
@@ -55,14 +56,14 @@
 	<div class="rounded-3 overflow-hidden">
 		<TableHeader
 			data={titles}
-			bind:grows
-			onClickPrev={(i) => onPrev(i, titles, array)}
-			onClickNext={(i) => onNext(i, titles, array)}
+			bind:grows={growsState}
+			onClickPrev={(i) => onPrev(i, titles, dataState)}
+			onClickNext={(i) => onNext(i, titles, dataState)}
 			onClickSort={(i) => {}}
 		/>
 
-		{#each array as row, i}
-			<TableRow data={row} bind:grows />
+		{#each dataState as row, i}
+			<TableRow data={row} bind:grows={growsState} />
 		{/each}
 	</div>
 </div>
