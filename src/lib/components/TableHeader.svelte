@@ -1,22 +1,22 @@
 <script lang="ts">
 	interface IProps {
 		data: any;
-		grows?: number[];
+		grows: number[];
 		onClickPrev?: (i: number) => void;
 		onClickNext?: (i: number) => void;
-		onClickSort?: (i: number) => void;
 		onChangeGrow?: (i: number, value: number) => void;
+		onClickSort?: (i: number) => void;
 		_class?: string;
 		_style?: string;
 	}
 
 	let {
-		data = $bindable(),
-		grows = $bindable(),
+		data,
+		grows,
 		onClickPrev,
 		onClickNext,
-		onClickSort,
 		onChangeGrow,
+		onClickSort,
 		_class = 'bg-2 px-3 py-1 fw-bold',
 		_style
 	}: IProps = $props();
@@ -45,9 +45,9 @@
 				</button>
 				<div class="menu border-0 rounded-3 shadow-sm">
 					{#each new Array(11) as _, value}
-						<button class="menu-item fs-xs rounded-3" onclick={() => onChangeGrow?.(i, value)}
-							>{value}</button
-						>
+						<button class="menu-item fs-xs rounded-3" onclick={() => onChangeGrow?.(i, value)}>
+							{value}
+						</button>
 					{/each}
 				</div>
 			</div>

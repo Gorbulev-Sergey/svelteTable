@@ -1,17 +1,12 @@
 <script lang="ts">
 	interface IProps {
 		data: any;
-		grows?: number[];
+		grows: number[];
 		_class?: string;
 		_style?: string;
 	}
 
-	let {
-		data = $bindable(),
-		grows = $bindable(),
-		_class = 'bg-1 px-3 py-1 bg-50',
-		_style
-	}: IProps = $props();
+	let { data, grows, _class = 'bg-1 px-3 py-1 bg-50', _style }: IProps = $props();
 </script>
 
 <div class="d-flex align-items-strech w-100">

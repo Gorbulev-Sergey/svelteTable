@@ -56,17 +56,15 @@
 	<div class="rounded-3 overflow-hidden">
 		<TableHeader
 			data={titles}
-			bind:grows={growsState}
+			grows={growsState}
 			onClickPrev={(i) => onPrev(i, titles, dataState)}
 			onClickNext={(i) => onNext(i, titles, dataState)}
+			onChangeGrow={(i, value) => (growsState[i] = value)}
 			onClickSort={(i) => {}}
-			onChangeGrow={(i, value) => {
-				growsState[i] = value;
-			}}
 		/>
 
 		{#each dataState as row, i}
-			<TableRow data={row} bind:grows={growsState} />
+			<TableRow data={row} grows={growsState} />
 		{/each}
 	</div>
 </div>
