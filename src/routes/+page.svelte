@@ -8,35 +8,36 @@
 			uid: crypto.randomUUID(),
 			name: 'Serge',
 			email: 'sergify@rr.r',
-			status: block
+			status: snippetBlock
 		},
 		{
 			uid: crypto.randomUUID(),
 			name: 'Helen',
 			email: 'helen@rr.r',
-			status: block
+			status: snippetBlock
 		},
 		{
 			uid: crypto.randomUUID(),
 			name: 'Max',
 			email: 'max@rr.r',
-			status: block
+			status: snippetBlock
 		}
 	]);
 </script>
 
-{#snippet block(object: { name: string })}
+<!-- Мы берём значения из data, которую мы передаём в качестве параметра в <Table> -->
+{#snippet snippetBlock(d: { name: string })}
 	<button
 		class="btn btn-xs bg-primary bg-10 rounded-3"
 		onclick={() => {
 			toast({
 				title: 'Сообщение',
-				content: `Кнопка от <b>${object.name}</b> нажата`,
+				content: `Кнопка от <b>${d.name}</b> нажата`,
 				shadow: 'shadow-sm',
 				bg: 'body',
 				opacity: '20'
 			});
-		}}>{object.name}</button
+		}}>{d.name}</button
 	>
 {/snippet}
 
