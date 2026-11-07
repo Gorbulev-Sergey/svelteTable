@@ -1,7 +1,7 @@
 <script lang="ts">
 	import PageTitle from '#lib/components/PageTitle.svelte';
 	import Table from '#lib/components/Table.svelte';
-	import { toast, Toaster } from '@gorbulevsv/toasts';
+	import { toast, Toaster } from '@gorbulevsv/toaster';
 
 	let data = $state([
 		{
