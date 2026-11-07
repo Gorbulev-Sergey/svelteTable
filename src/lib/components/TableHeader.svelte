@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ITableFilter } from '#lib/models/ITableFilter.ts';
+	import type { ITableFilter } from '../models/ITableFilter.ts';
 
 	interface IProps {
 		data: any;

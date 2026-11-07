@@ -1,7 +1,7 @@
 <script lang="ts">
-	import TableHeader from '#lib/components/TableHeader.svelte';
-	import TableRow from '#lib/components/TableRow.svelte';
-	import type { ITableFilter } from '#lib/models/ITableFilter.ts';
+	import TableHeader from '../components/TableHeader.svelte';
+	import TableRow from '../components/TableRow.svelte';
+	import type { ITableFilter } from '../models/ITableFilter.ts';
 
 	interface IProps {
 		title?: string;

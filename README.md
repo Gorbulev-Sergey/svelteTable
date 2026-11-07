@@ -11,19 +11,21 @@ Sveltekit компонент таблицы с оформлением на **Boo
 - `title` - заголовок таблицы (опционально),
 - `data` - данные, передаваемые в таблицу в формате массива объектов, например:
 
-  ```json
-  let data = [{
-  	uid: 1,
-  	name: 'Serge',
-  	email: 'sergify@rr.r',
-  	status: 'ok'
-  },
-  {
-  	uid: 2,
-  	name: 'Helen',
-  	email: 'helen@rr.r',
-  	status: 'go'
-  }]
+  ```ts
+  let data = [
+  	{
+  		uid: 1,
+  		name: 'Serge',
+  		email: 'sergify@rr.r',
+  		status: 'ok'
+  	},
+  	{
+  		uid: 2,
+  		name: 'Helen',
+  		email: 'helen@rr.r',
+  		status: 'go'
+  	}
+  ];
   ```
 
   , с нужным вам количеством полей,
@@ -41,6 +43,8 @@ Sveltekit компонент таблицы с оформлением на **Boo
 ```
 
 , где `table`, `header`, `row` оформляют всю таблицу, заголовки столбцов или строки таблицы соответственно.
+
+##
 
 Пример:
 
@@ -69,7 +73,7 @@ let data = [
 
 Вы можете отрендерить в ячейке таблицы сниппеты. Например, в качестве **status** предыдущего **data**, мы хотим добавить кнопку с указанием значения **name** из тойже **data**, т.е. хотим сделать как здесь:
 
-![Пример таблицы](/static/Table.png)
+![Пример таблицы](assets/Table.png)
 
 тогда:
 
@@ -106,6 +110,8 @@ let data = [
 
 а не
 
-`{#snippet block(name: string)}` (этот вариант не сработает), т.к. внутри `<Table />` это рендерится как ~ `{@render cell?.(data[i])}`, где `data[i]` это объект вроде `{uid: 2, name: 'Helen', email: 'helen@rr.r', status: block}`
+`{#snippet block(name: string)}`
+
+Второй вариант не сработает, т.к. внутри `<Table />` это рендерится приблизительно как `{@render cell?.(data[i])}`, где `data[i]` это объект вроде `{uid: 2, name: 'Helen', email: 'helen@rr.r', status: block}`.
 
 Данные для подстановки в сниппет, берутся из объекта **data** (соответствующей ячейки).
