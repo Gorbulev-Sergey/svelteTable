@@ -7,12 +7,12 @@
 	}
 
 	let { data, grows, _class = 'bg-1 px-3 py-1 bg-50', _style }: IProps = $props();
-	const project = {
-		uid: crypto.randomUUID(),
-		name: 'Serge',
-		email: 'sergify@rr.r',
-		status: 'Вечер'
-	};
+	const project = $derived({
+		uid: data[0],
+		name: data[1],
+		email: data[2],
+		status: data[3]
+	});
 </script>
 
 <div class="d-flex align-items-strech w-100">
