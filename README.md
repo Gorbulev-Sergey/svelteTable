@@ -1,56 +1,43 @@
-# sv
+## Svelte TABLE
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Sveltekit компонент таблицы с оформлением на **Bootstrap 6**.
 
-## Creating a project
+![Пример таблицы](/static/Table.png)
 
-If you're seeing this, you've probably already done this step. Congrats!
+Добавьте `<Table />` на свою страницу.
 
-```sh
-# create a new project
-npx sv create my-app
+У компонента есть параметры:
+
+- `title` - заголовок таблицы (опционально),
+- `data` - данные, передаваемые в таблицу в формате массива объектов, например:
+
+  ```json
+  let data = [{
+  	uid: 1,
+  	name: 'Serge',
+  	email: 'sergify@rr.r',
+  	status: 'ok'
+  },
+  {
+  	uid: 2,
+  	name: 'Helen',
+  	email: 'helen@rr.r',
+  	status: 'go'
+  }]
+  ```
+
+  , с нужным вам количеством полей,
+
+- `titles` - заголовки колонок таблицы (опционально), если не указывать, то значения берутся из ключей объектов **data**,
+- `grows` - массив **grow** значений (опционально), для задания каждой колонке доли ширины в таблице, например:
+
+  `[2,1,1,1]`,
+  если не указывать, то значения устанавливаются равными единице,
+
+-`_class` и `_style` - для задания классов и стилей оформления в формате:
+
+```ts
+{ table?: string; header?: string; row?: string }
 ```
 
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-npx sv@1.2.0 create --template minimal --types ts --add prettier experimental="features:async,remoteFunctions" --install npm ./
-```
-
-## Adding features
-
-Add features to your project with `sv add`:
-
-```sh
-npx sv add
-```
-
-For example, to add Tailwind CSS:
-
-```sh
-npx sv add tailwindcss
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+, где `table`, `header`, `row` оформляют всю таблицу, заголовки столбцов или строки таблицы соответственно.
