@@ -4,7 +4,7 @@
 
 	let data = $state([
 		{
-			uid: crypto.randomUUID(),
+			uid: 'https://lh3.googleusercontent.com/a/ACg8ocKuJt_jdEOr4Gm3OwIrtc_bWzRZ3pxO43AkvUlH1iIwLksKEI7M=s96-c',
 			name: 'Serge',
 			email: 'sergify@rr.r',
 			status: snippetBlock
