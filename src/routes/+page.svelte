@@ -1,7 +1,6 @@
 <script lang="ts">
 	import PageTitle from '#lib/components/PageTitle.svelte';
 	import Table from '#lib/components/Table.svelte';
-	import { toast, Toaster } from '@gorbulevsv/toaster';
 
 	let data = $state([
 		{
@@ -27,17 +26,8 @@
 
 <!-- Мы берём значения из data, которую мы передаём в качестве параметра в <Table> -->
 {#snippet snippetBlock(d: { name: string })}
-	<button
-		class="btn btn-xs bg-primary bg-10 rounded-3"
-		onclick={() => {
-			toast({
-				title: 'Сообщение',
-				content: `Кнопка от <b>${d.name}</b> нажата`,
-				shadow: 'shadow-sm',
-				bg: 'body',
-				opacity: '20'
-			});
-		}}>{d.name}</button
+	<button class="btn btn-xs bg-primary bg-10 rounded-3" onclick={() => alert(d.name)}
+		>{d.name}</button
 	>
 {/snippet}
 
@@ -47,5 +37,3 @@
 </PageTitle>
 
 <Table title="Пользователи" {data} grows={[2, 1, 1, 1]} />
-
-<Toaster />
