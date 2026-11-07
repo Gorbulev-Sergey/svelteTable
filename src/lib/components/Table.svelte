@@ -25,15 +25,19 @@
 		}
 	});
 	let dataStateFiltered = $derived.by(() => {
-		if (filter.sort.direction === 'down') {
-			return [...dataState].sort((a, b) =>
-				String(a[filter.sort.i]).localeCompare(String(b[filter.sort.i]))
-			);
-		}
-		if (filter.sort.direction === 'up') {
-			return [...dataState].sort((a, b) =>
-				String(b[filter.sort.i]).localeCompare(String(a[filter.sort.i]))
-			);
+		try {
+			if (filter.sort.direction === 'down') {
+				return [...dataState].sort((a, b) =>
+					String(a[filter.sort.i]).localeCompare(String(b[filter.sort.i]))
+				);
+			}
+			if (filter.sort.direction === 'up') {
+				return [...dataState].sort((a, b) =>
+					String(b[filter.sort.i]).localeCompare(String(a[filter.sort.i]))
+				);
+			}
+		} catch (error) {
+			return [...dataState];
 		}
 	});
 
