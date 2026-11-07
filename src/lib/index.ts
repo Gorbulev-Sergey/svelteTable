@@ -1,1 +1,3 @@
-// place files you want to import through the `#lib` alias in this folder.
+export { default as TableHeader } from './components/TableHeader.svelte';
+export { default as TableRow } from './components/TableRow.svelte';
+export { default as Table } from './components/Table.svelte';
