@@ -4,15 +4,12 @@
 		grows: number[];
 		_class?: string;
 		_style?: string;
+		titles: string[];
 	}
 
-	let { data, grows, _class = 'bg-1 px-3 py-1 bg-50', _style }: IProps = $props();
-	const project = $derived({
-		uid: data[0],
-		name: data[1],
-		email: data[2],
-		status: data[3]
-	});
+	let { data, grows, _class = 'bg-1 px-3 py-1 bg-50', _style, titles }: IProps = $props();
+	// Объединяем в один объект titles - то будут keys, и data - это будут values
+	const renderedData = $derived(Object.fromEntries(titles.map((k, i) => [k, data[i]])));
 </script>
 
 <div class="d-flex align-items-strech w-100">
@@ -24,7 +21,7 @@
 			{#if typeof cell !== 'function'}
 				{@html cell}
 			{:else}
-				{@render cell?.(project)}
+				{@render cell?.(renderedData)}
 			{/if}
 		</div>
 	{/each}

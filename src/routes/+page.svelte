@@ -8,35 +8,35 @@
 			uid: crypto.randomUUID(),
 			name: 'Serge',
 			email: 'sergify@rr.r',
-			status: 'Вечер'
+			status: block
 		},
 		{
 			uid: crypto.randomUUID(),
 			name: 'Helen',
 			email: 'helen@rr.r',
-			status: value
+			status: block
 		},
 		{
 			uid: crypto.randomUUID(),
 			name: 'Max',
 			email: 'max@rr.r',
-			status: value
+			status: block
 		}
 	]);
 </script>
 
-{#snippet value(status: { name: string })}
+{#snippet block(object: { name: string })}
 	<button
 		class="btn btn-xs bg-primary bg-10 rounded-3"
 		onclick={() => {
 			toast({
 				title: 'Сообщение',
-				content: `Кнопка от <b>${status.name}</b> нажата`,
+				content: `Кнопка от <b>${object.name}</b> нажата`,
 				shadow: 'shadow-sm',
 				bg: 'body',
 				opacity: '20'
 			});
-		}}>{status.name}</button
+		}}>{object.name}</button
 	>
 {/snippet}
 

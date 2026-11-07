@@ -92,7 +92,13 @@
 		/>
 
 		{#each dataStateFiltered as row, i}
-			<TableRow data={row} grows={growsState} _class={_class?.row} _style={_style?.row} />
+			<TableRow
+				data={row}
+				grows={growsState}
+				_class={_class?.row}
+				_style={_style?.row}
+				titles={titlesState}
+			/>
 		{/each}
 	</div>
 </div>
