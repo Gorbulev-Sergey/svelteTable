@@ -1,17 +1,8 @@
 <script lang="ts">
 	import PageTitle from '#lib/components/PageTitle.svelte';
 	import Table from '#lib/components/Table.svelte';
-	import { createRawSnippet, type Snippet } from 'svelte';
 
-	let button = (text: string) => {
-		return createRawSnippet(() => {
-			return {
-				render: () => `<button class='badge bg-info bg-10'>${text}</button>`
-			};
-		});
-	};
-
-	let data = $derived([
+	let data = $state([
 		{
 			uid: crypto.randomUUID(),
 			name: 'Serge',
@@ -22,19 +13,19 @@
 			uid: crypto.randomUUID(),
 			name: 'Helen',
 			email: 'helen@rr.r',
-			status: 'go'
+			status: value
 		},
 		{
 			uid: crypto.randomUUID(),
 			name: 'Max',
 			email: 'max@rr.r',
-			status: button('Свистай всех на палубу')
+			status: value
 		}
 	]);
 </script>
 
-{#snippet status(text: string)}
-	<button class="badge bg-info bg-10" onclick={() => {}}>{text}</button>
+{#snippet value(status: { name: string })}
+	<button class="btn btn-xs bg-primary bg-10 rounded-3" onclick={() => {}}>{status.name}</button>
 {/snippet}
 
 <PageTitle>

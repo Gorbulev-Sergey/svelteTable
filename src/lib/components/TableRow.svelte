@@ -7,6 +7,12 @@
 	}
 
 	let { data, grows, _class = 'bg-1 px-3 py-1 bg-50', _style }: IProps = $props();
+	const project = {
+		uid: crypto.randomUUID(),
+		name: 'Serge',
+		email: 'sergify@rr.r',
+		status: 'Вечер'
+	};
 </script>
 
 <div class="d-flex align-items-strech w-100">
@@ -15,10 +21,10 @@
 			class="d-flex align-items-center gap-1 text-wrap {_class}"
 			style="flex: {grows?.[i]} {grows?.[i]} 0%; {_style}"
 		>
-			{#if typeof cell === 'string'}
+			{#if typeof cell !== 'function'}
 				{@html cell}
 			{:else}
-				{@render cell?.()}
+				{@render cell?.(project)}
 			{/if}
 		</div>
 	{/each}
