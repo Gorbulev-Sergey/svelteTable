@@ -29,7 +29,13 @@
 	<button
 		class="btn btn-xs bg-primary bg-10 rounded-3"
 		onclick={() => {
-			toast({ title: 'Сообщение', content: `Кнопка от <b>${status.name}</b> нажата` });
+			toast({
+				title: 'Сообщение',
+				content: `Кнопка от <b>${status.name}</b> нажата`,
+				shadow: 'shadow-sm',
+				bg: 'body',
+				opacity: '20'
+			});
 		}}>{status.name}</button
 	>
 {/snippet}
