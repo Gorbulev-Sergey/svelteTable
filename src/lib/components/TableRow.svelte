@@ -7,21 +7,21 @@
 		titles: string[];
 	}
 
-	let { data, grows, _class = 'bg-1 px-3 py-1 bg-50', _style, titles }: IProps = $props();
+	let { data, grows, _class = 'bg-1 bg-50 align-items-center', _style, titles }: IProps = $props();
 	// Объединяем в один объект titles - то будут keys, и data - это будут values
-	const renderedData = $derived(Object.fromEntries(titles.map((k, i) => [k, data[i]])));
+	const dataWithTitles = $derived(Object.fromEntries(titles.map((k, i) => [k, data[i]])));
 </script>
 
 <div class="d-flex align-items-strech w-100">
 	{#each data as cell, i}
 		<div
-			class="d-flex align-items-center gap-1 text-break {_class}"
+			class="d-flex gap-1 text-wrap px-3 py-1 {_class}"
 			style="flex: {grows?.[i]} {grows?.[i]} 0%; {_style}"
 		>
-			{#if typeof cell === 'string'}
+			{#if !cell?.snippet}
 				{@html cell}
 			{:else}
-				{@render cell?.(renderedData)}
+				{@render cell?.snippet?.(dataWithTitles)}
 			{/if}
 		</div>
 	{/each}
