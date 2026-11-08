@@ -18,10 +18,10 @@
 			class="d-flex align-items-center gap-1 text-wrap {_class}"
 			style="flex: {grows?.[i]} {grows?.[i]} 0%; {_style}"
 		>
-			{#if typeof cell !== 'function'}
+			{#if typeof cell === 'string'}
 				{@html cell}
 			{:else}
-				{@render cell?.(renderedData)}
+				{@render cell?.snippet?.(renderedData)}
 			{/if}
 		</div>
 	{/each}
