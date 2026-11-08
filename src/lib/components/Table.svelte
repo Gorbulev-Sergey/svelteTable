@@ -42,7 +42,6 @@
 	});
 
 	function onPrev(i: number, titles: string[], array: any[][]) {
-		console.log(array);
 		if (i > 0) {
 			[titles[i], titles[i - 1]] = [titles[i - 1], titles[i]];
 			[growsState[i], growsState[i - 1]] = [growsState[i - 1], growsState[i]];

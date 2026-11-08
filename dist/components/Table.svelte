@@ -49,25 +49,26 @@
 				[row[i], row[i - 1]] = [row[i - 1], row[i]];
 			}
 		} else {
-			[titles[i], titles[array.length]] = [titles[array.length], titles[i]];
-			[growsState[i], growsState[array.length]] = [growsState[array.length], growsState[i]];
+			const length = array[0].length - 1;
+			[titles[i], titles[length]] = [titles[length], titles[i]];
+			[growsState[i], growsState[length]] = [growsState[length], growsState[i]];
 			for (const row of array) {
-				[row[i], row[array.length]] = [row[array.length], row[i]];
+				[row[i], row[row.length - 1]] = [row[row.length - 1], row[i]];
 			}
 		}
 	}
 	function onNext(i: number, titles: string[], array: any[][]) {
-		if (i > array.length - 1) {
-			[titles[i], titles[0]] = [titles[0], titles[i]];
-			[growsState[i], growsState[0]] = [growsState[0], growsState[i]];
-			for (const row of array) {
-				[row[i], row[0]] = [row[0], row[i]];
-			}
-		} else {
+		if (i < array[0].length - 1) {
 			[titles[i], titles[i + 1]] = [titles[i + 1], titles[i]];
 			[growsState[i], growsState[i + 1]] = [growsState[i + 1], growsState[i]];
 			for (const row of array) {
 				[row[i], row[i + 1]] = [row[i + 1], row[i]];
+			}
+		} else {
+			[titles[i], titles[0]] = [titles[0], titles[i]];
+			[growsState[i], growsState[0]] = [growsState[0], growsState[i]];
+			for (const row of array) {
+				[row[i], row[0]] = [row[0], row[i]];
 			}
 		}
 	}
@@ -91,7 +92,7 @@
 			_style={_style?.header}
 		/>
 
-		{#each dataStateFiltered as row, i}
+		{#each dataStateFiltered as row}
 			<TableRow
 				data={row}
 				grows={growsState}
