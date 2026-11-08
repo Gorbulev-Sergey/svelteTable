@@ -71,47 +71,78 @@ let data = [
 
 ##
 
-Вы можете отрендерить в ячейке таблицы сниппеты. Например, в качестве **status** предыдущего **data**, мы хотим добавить кнопку с указанием значения **name** из тойже **data**, т.е. хотим сделать как здесь:
+Вы можете отрендерить в ячейке таблицы сниппеты. Тогда нам нужно изменить **data** следующим образом:
 
-![Пример таблицы](/assets/Table.png)
+```ts
+let data = [
+	{
+		uid: 1,
+		name: 'Max',
+		email: 'max@rr.r',
+		status: 'ok',
+		picture: {
+			snippet: pictureSnippet,
+			url: 'https://avatars.mds.yandex.net/i?id=70ac3804623c28aefe512774776838b4_l-16338923-images-thumbs&n=13',
+			title: 'Привет'
+		}
+	},
+	{
+		uid: 2,
+		name: 'Helen',
+		email: 'helen@rr.r',
+		status: 'ok',
+		picture: {
+			snippet: pictureSnippet,
+			url: 'https://avatars.mds.yandex.net/i?id=dbb82f339bab80491528cf7c02428ee4_l-10752576-images-thumbs&n=13',
+			title: 'Как дела'
+		}
+	}
+];
+```
 
-тогда:
+Здесь мы добавили к данным в **data** поле `picture`, которое содержит поля `snippet`, `url`, `title`. Поле `snippet` в данном случае обязательное, если мы хотим отрендерить этот `picture`, оно равно нашему сниппету. А поля `url`, `title` - это данные, которые мы передаём в сниппет.
 
-- создаём сниппет:
+Вот пример нашего сниппета:
 
-  ```html
-  {#snippet block(ob: { name: string })}
-  <button class="btn">{ob.name}</button>
-  {/snippet}
-  ```
+```ts
+{#snippet pictureSnippet(obj: { picture: { url: string; title: string } })}
+	<div class="d-flex flex-column gap-1 rounded-3 overflow-hidden">
+		<div>{obj.picture.title}</div>
+		<img class="img-fluid rounded-3" src={obj.picture.url} alt={obj.picture.title} />
+	</div>
+{/snippet}
+```
 
-- и меняем в **data** **status** на название сниппета **block**, т.е.
+В сниппете в параметрах нужно указывать объект, а не отдельные параметры. Т.е. нужно
 
-  ```ts
-  let data = [
-  	{
-  		uid: 1,
-  		name: 'Serge',
-  		email: 'sergify@rr.r',
-  		status: block
-  	},
-  	{
-  		uid: 2,
-  		name: 'Helen',
-  		email: 'helen@rr.r',
-  		status: block
-  	}
-  ];
-  ```
+```ts
+{#snippet pictureSnippet(obj: { picture: { url: string; title: string } })}
+```
 
-В сниппете в параметрах нужно указывать объект, а не отдельный параметр. Т.е. нужно
+, а не
 
-`{#snippet block(ob: { name: string })}`,
+```ts
+{#snippet pictureSnippet(picture: { url: string; title: string } )}
+```
 
-а не
+, и не
 
-`{#snippet block(name: string)}`
+```ts
+{#snippet pictureSnippet(url: string; title: string )}
+```
 
-Второй вариант не сработает, т.к. внутри `<Table />` это рендерится приблизительно как `{@render cell?.(data[i])}`, где `data[i]` это объект вроде `{uid: 2, name: 'Helen', email: 'helen@rr.r', status: block}`.
+Последние варианты не сработают, т.к. внутри `<Table />` это рендерится приблизительно как `{@render cell?.(data[i])}`, где `data[i]` это объект вроде
 
-Данные для подстановки в сниппет, берутся из объекта **data** (соответствующей ячейки).
+```ts
+{
+	uid: 2,
+	name: 'Helen',
+	email: 'helen@rr.r',
+	status: 'ok',
+	picture: {
+		snippet: pictureSnippet,
+		url: 'https://avatars.mds.yandex.net/i?id=dbb82f339bab80491528cf7c02428ee4_l-10752576-images-thumbs&n=13',
+		title: 'Как дела'
+	}
+}
+```
