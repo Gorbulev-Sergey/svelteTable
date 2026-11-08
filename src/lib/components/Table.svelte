@@ -12,7 +12,7 @@
 		_style?: { table?: string; header?: string; row?: string };
 	}
 
-	let { title, data, titles, grows, _class, _style }: IProps = $props();
+	let { title, data = $bindable([]), titles, grows, _class, _style }: IProps = $props();
 
 	let dataState = $state(data.map((v) => Object.values(v)));
 	let titlesState = $state(titles || Object.keys(data[0]).map((v) => v));
