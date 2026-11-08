@@ -49,11 +49,18 @@
 				[row[i], row[i - 1]] = [row[i - 1], row[i]];
 			}
 		} else {
-			const length = array[0].length - 1;
-			[titles[i], titles[length]] = [titles[length], titles[i]];
-			[growsState[i], growsState[length]] = [growsState[length], growsState[i]];
+			let t = titles[i];
+			titles.splice(0, 1);
+			titles.push(t);
+
+			let g = growsState[i];
+			growsState.splice(0, 1);
+			growsState.push(g);
+
 			for (const row of array) {
-				[row[i], row[row.length - 1]] = [row[row.length - 1], row[i]];
+				let v = row[i];
+				row.splice(0, 1);
+				row.push(v);
 			}
 		}
 	}
@@ -65,10 +72,18 @@
 				[row[i], row[i + 1]] = [row[i + 1], row[i]];
 			}
 		} else {
-			[titles[i], titles[0]] = [titles[0], titles[i]];
-			[growsState[i], growsState[0]] = [growsState[0], growsState[i]];
+			let t = titles[i];
+			titles.splice(-1, 1);
+			titles.splice(0, 0, t);
+
+			let g = growsState[i];
+			growsState.splice(-1, 1);
+			growsState.splice(0, 0, g);
+
 			for (const row of array) {
-				[row[i], row[0]] = [row[0], row[i]];
+				let v = row[i];
+				row.splice(-1, 1);
+				row.splice(0, 0, v);
 			}
 		}
 	}
