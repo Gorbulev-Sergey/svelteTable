@@ -41,9 +41,9 @@
 
 <!-- Мы берём значения из data, которую мы передаём в качестве параметра в <Table> -->
 {#snippet pictureSnippet(obj: { picture: { url?: string; title?: string } })}
-	<div class="d-flex flex-column rounded-3 overflow-hidden">
-		<img class="img-fluid rounded-3" src={obj.picture.url} alt={obj.picture.title} />
+	<div class="d-flex flex-column gap-1 rounded-3 overflow-hidden">
 		<div>{obj.picture.title}</div>
+		<img class="img-fluid rounded-3" src={obj.picture.url} alt={obj.picture.title} />
 	</div>
 {/snippet}
 
