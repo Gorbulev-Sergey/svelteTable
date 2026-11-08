@@ -91,7 +91,7 @@
 			_style={_style?.header}
 		/>
 
-		{#each dataStateFiltered as row, i}
+		{#each dataStateFiltered as row}
 			<TableRow
 				data={row}
 				grows={growsState}

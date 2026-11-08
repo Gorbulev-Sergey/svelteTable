@@ -9,7 +9,7 @@
 
 	let { data, grows, _class = 'bg-1 px-3 py-1 bg-50', _style, titles }: IProps = $props();
 	// Объединяем в один объект titles - то будут keys, и data - это будут values
-	const renderedData = $derived(Object.fromEntries(titles.map((k, i) => [k, data[i]])));
+	const dataWithTitles = $derived(Object.fromEntries(titles.map((k, i) => [k, data[i]])));
 </script>
 
 <div class="d-flex align-items-strech w-100">
@@ -18,10 +18,10 @@
 			class="d-flex align-items-center gap-1 text-wrap {_class}"
 			style="flex: {grows?.[i]} {grows?.[i]} 0%; {_style}"
 		>
-			{#if typeof cell === 'string'}
+			{#if !cell?.snippet}
 				{@html cell}
 			{:else}
-				{@render cell?.snippet?.(renderedData)}
+				{@render cell.snippet?.(dataWithTitles)}
 			{/if}
 		</div>
 	{/each}
