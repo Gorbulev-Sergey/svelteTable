@@ -1,7 +1,6 @@
 <script lang="ts">
 	import PageTitle from '#lib/components/PageTitle.svelte';
 	import Table from '#lib/components/Table.svelte';
-	import { toast, Toaster } from '@gorbulevsv/toaster';
 
 	let data = $state([
 		{
@@ -41,7 +40,7 @@
 </script>
 
 <!-- Мы берём значения из data, которую мы передаём в качестве параметра в <Table> -->
-{#snippet pictureSnippet(obj: { picture: { url: string; title: string } })}
+{#snippet pictureSnippet(obj: { picture: { url?: string; title?: string } })}
 	<div class="d-flex flex-column rounded-3 overflow-hidden">
 		<img class="img-fluid rounded-3" src={obj.picture.url} alt={obj.picture.title} />
 		<div>{obj.picture.title}</div>
@@ -54,5 +53,3 @@
 </PageTitle>
 
 <Table title="Пользователи" {data} />
-
-<Toaster />

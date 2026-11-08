@@ -4,6 +4,7 @@
 	import type { LayoutProps } from './$types';
 	import 'bootstrap/dist/css/bootstrap.min.css';
 	import 'bootstrap-icons/font/bootstrap-icons.min.css';
+	import { Toaster } from '@gorbulevsv/toaster';
 
 	function toggleTheme() {
 		let theme = document.querySelector('[data-bs-theme]');
@@ -45,6 +46,8 @@
 <div class="container my-8">
 	{@render children()}
 </div>
+
+<Toaster />
 
 <style>
 	:global(:root) {

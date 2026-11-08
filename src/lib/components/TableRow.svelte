@@ -21,7 +21,7 @@
 			{#if !cell?.snippet}
 				{@html cell}
 			{:else}
-				{@render cell.snippet?.(dataWithTitles)}
+				{@render cell?.snippet?.(dataWithTitles)}
 			{/if}
 		</div>
 	{/each}
