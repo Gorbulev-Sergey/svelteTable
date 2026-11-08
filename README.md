@@ -1,5 +1,7 @@
 ## Svelte TABLE
 
+https://github.com/Gorbulev-Sergey/svelteTable
+
 Sveltekit компонент таблицы с оформлением на **Bootstrap 6**.
 
 Добавьте `<Table />` на свою страницу.
@@ -66,7 +68,7 @@ let data = [
 ```
 
 ```html
-<table {data} grows="{[2,1,1,1]}" />
+<table {data} grows="{[2,1,1,1]}" _class={{ row: 'bg-info' }}/>
 ```
 
 ##
@@ -131,7 +133,7 @@ let data = [
 {#snippet pictureSnippet(url: string; title: string )}
 ```
 
-Последние варианты не сработают, т.к. внутри `<Table />` это рендерится приблизительно как `{@render cell?.(data[i])}`, где `data[i]` это объект вроде
+Последние варианты не сработают, т.к. внутри `<Table />` это рендерится приблизительно как `{@render cell?.(data[i])}`, где `data[i]` это объект вроде:
 
 ```ts
 {

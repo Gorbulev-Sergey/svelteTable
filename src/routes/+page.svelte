@@ -41,4 +41,4 @@
 	<div class="bg-2 px-2 py-1 fs-sm rounded-3 text-uppercase ms-1">Главная</div>
 </PageTitle>
 
-<Table title="Пользователи" {data} />
+<Table title="Пользователи" {data} _class={{ row: 'bg-info' }} />
