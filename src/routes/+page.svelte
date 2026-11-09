@@ -41,9 +41,6 @@
 		}
 	]);
 
-	let data1 = $derived(Object.values(data));
-	let data2 = $derived(data1.map((v) => Object.values(v)));
-
 	let dataState = $derived(
 		(await getData()).map((d) => {
 			return {
@@ -82,9 +79,3 @@
 </PageTitle>
 
 <Table title="Пользователи" data={dataState} />
-
-<div class="d-flex flex-column gap-1">
-	{#each data1 as row}
-		<div>{row.name}</div>
-	{/each}
-</div>
