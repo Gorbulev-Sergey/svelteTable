@@ -27,19 +27,25 @@
 	});
 
 	let dataStateFiltered = $derived.by(() => {
-		try {
-			if (filter.sort.direction === 'down') {
-				return [...dataState].sort((a, b) =>
-					String(a[filter.sort.i]).localeCompare(String(b[filter.sort.i]))
+		const keys = Object.keys(dataState[0]);
+		const sortKey = keys[filter.sort.i];
+
+		if (filter.sort.direction === 'down') {
+			return [...dataState].sort((a, b) => {
+				return String(a[sortKey as keyof typeof a]).localeCompare(
+					String(b[sortKey as keyof typeof b])
 				);
-			}
-			if (filter.sort.direction === 'up') {
-				return [...dataState].sort((a, b) =>
-					String(b[filter.sort.i]).localeCompare(String(a[filter.sort.i]))
+			});
+			// return dataState.sort((a, b) =>
+			// 	String(a[filter.sort.i]).localeCompare(String(b[filter.sort.i]))
+			// );
+		}
+		if (filter.sort.direction === 'up') {
+			return [...dataState].sort((a, b) => {
+				return String(b[sortKey as keyof typeof b]).localeCompare(
+					String(a[sortKey as keyof typeof a])
 				);
-			}
-		} catch (error) {
-			return [...dataState];
+			});
 		}
 	});
 
@@ -118,7 +124,7 @@
 			_style={_style?.header}
 		/>
 
-		{#each dataState as row}
+		{#each dataStateFiltered as row}
 			<TableRow data={row} grows={growsState} _class={_class?.row} _style={_style?.row} />
 		{/each}
 	</div>
