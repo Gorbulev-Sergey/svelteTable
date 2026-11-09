@@ -5,7 +5,7 @@
 
 	interface IProps {
 		title?: string;
-		data: any[];
+		data: object[];
 		titles?: string[];
 		grows?: number[];
 		_class?: { table?: string; header?: string; row?: string };
@@ -14,7 +14,8 @@
 
 	let { title, data = $bindable([]), titles, grows, _class, _style }: IProps = $props();
 
-	let dataState = $state(data.map((v) => Object.values(v)));
+	// let dataState = $state(data.map((v) => Object.values(v)));
+	let dataState = $state(Object.values(data));
 	let titlesState = $state(titles || Object.keys(data[0]).map((v) => v));
 	let growsState = $state(grows || Object.keys(dataState[0]).map((v) => 1));
 
@@ -24,6 +25,7 @@
 			direction: 'down'
 		}
 	});
+
 	let dataStateFiltered = $derived.by(() => {
 		try {
 			if (filter.sort.direction === 'down') {
@@ -41,50 +43,59 @@
 		}
 	});
 
-	function onPrev(i: number, titles: string[], array: any[][]) {
+	function onPrev(i: number) {
 		if (i > 0) {
-			[titles[i], titles[i - 1]] = [titles[i - 1], titles[i]];
+			[titlesState[i], titlesState[i - 1]] = [titlesState[i - 1], titlesState[i]];
 			[growsState[i], growsState[i - 1]] = [growsState[i - 1], growsState[i]];
-			for (const row of array) {
-				[row[i], row[i - 1]] = [row[i - 1], row[i]];
-			}
+			dataState = dataState.map((v) => {
+				let a = Object.entries(v);
+				[a[i], a[i - 1]] = [a[i - 1], a[i]];
+				return Object.fromEntries(a);
+			});
 		} else {
-			let t = titles[i];
-			titles.splice(0, 1);
-			titles.push(t);
+			let t = titlesState[i];
+			titlesState.splice(0, 1);
+			titlesState.push(t);
 
 			let g = growsState[i];
 			growsState.splice(0, 1);
 			growsState.push(g);
 
-			for (const row of array) {
-				let v = row[i];
-				row.splice(0, 1);
-				row.push(v);
-			}
+			dataState = dataState.map((n) => {
+				let a = Object.entries(n);
+				let v = a[i];
+				a.splice(0, 1);
+				a.push(v);
+				return Object.fromEntries(a);
+			});
 		}
 	}
-	function onNext(i: number, titles: string[], array: any[][]) {
-		if (i < array[0].length - 1) {
-			[titles[i], titles[i + 1]] = [titles[i + 1], titles[i]];
+	function onNext(i: number) {
+		let keysLength = Object.keys(dataState[0]).length - 1;
+		if (i < keysLength) {
+			[titlesState[i], titlesState[i + 1]] = [titlesState[i + 1], titlesState[i]];
 			[growsState[i], growsState[i + 1]] = [growsState[i + 1], growsState[i]];
-			for (const row of array) {
-				[row[i], row[i + 1]] = [row[i + 1], row[i]];
-			}
+			dataState = dataState.map((v) => {
+				let a = Object.entries(v);
+				[a[i], a[i + 1]] = [a[i + 1], a[i]];
+				return Object.fromEntries(a);
+			});
 		} else {
-			let t = titles[i];
-			titles.splice(-1, 1);
-			titles.splice(0, 0, t);
+			let t = titlesState[i];
+			titlesState.splice(-1, 1);
+			titlesState.splice(0, 0, t);
 
 			let g = growsState[i];
 			growsState.splice(-1, 1);
 			growsState.splice(0, 0, g);
 
-			for (const row of array) {
-				let v = row[i];
-				row.splice(-1, 1);
-				row.splice(0, 0, v);
-			}
+			dataState = dataState.map((n) => {
+				let a = Object.entries(n);
+				let v = a[i];
+				a.splice(-1, 1);
+				a.splice(0, 0, v);
+				return Object.fromEntries(a);
+			});
 		}
 	}
 </script>
@@ -96,8 +107,8 @@
 			data={titlesState}
 			grows={growsState}
 			{filter}
-			onClickPrev={(i) => onPrev(i, titlesState, dataState)}
-			onClickNext={(i) => onNext(i, titlesState, dataState)}
+			onClickPrev={(i) => onPrev(i)}
+			onClickNext={(i) => onNext(i)}
 			onChangeGrow={(i, value) => (growsState[i] = value)}
 			onClickSort={(i) => {
 				if (filter.sort.i != i) filter.sort = { i: i, direction: 'down' };
@@ -107,14 +118,8 @@
 			_style={_style?.header}
 		/>
 
-		{#each dataStateFiltered as row}
-			<TableRow
-				data={row}
-				grows={growsState}
-				_class={_class?.row}
-				_style={_style?.row}
-				titles={titlesState}
-			/>
+		{#each dataState as row}
+			<TableRow data={row} grows={growsState} _class={_class?.row} _style={_style?.row} />
 		{/each}
 	</div>
 </div>

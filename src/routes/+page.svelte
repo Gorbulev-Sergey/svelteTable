@@ -41,6 +41,9 @@
 		}
 	]);
 
+	let data1 = $derived(Object.values(data));
+	let data2 = $derived(data1.map((v) => Object.values(v)));
+
 	let dataState = $derived(
 		(await getData()).map((d) => {
 			return {
@@ -64,6 +67,7 @@
 			class="btn btn-xs rounded-3"
 			onclick={async () => {
 				await editData({ i: 0, key: 'name', value: 'Суслик' });
+				await refreshAll();
 			}}
 		>
 			{obj.picture.title}
@@ -77,4 +81,10 @@
 	<div class="bg-2 px-2 py-1 fs-sm rounded-3 text-uppercase ms-1">Главная</div>
 </PageTitle>
 
-<Table title="Пользователи" bind:data={dataState} />
+<Table title="Пользователи" data={dataState} />
+
+<div class="d-flex flex-column gap-1">
+	{#each data1 as row}
+		<div>{row.name}</div>
+	{/each}
+</div>
