@@ -1,6 +1,6 @@
 interface IProps {
     title?: string;
-    data: any[];
+    data: object[];
     titles?: string[];
     grows?: number[];
     _class?: {
@@ -14,6 +14,6 @@ interface IProps {
         row?: string;
     };
 }
-declare const Table: import("svelte").Component<IProps, {}, "">;
+declare const Table: import("svelte").Component<IProps, {}, "data">;
 type Table = ReturnType<typeof Table>;
 export default Table;

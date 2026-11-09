@@ -10,6 +10,6 @@ interface IProps {
     _class?: string;
     _style?: string;
 }
-declare const TableHeader: import("svelte").Component<IProps, {}, "">;
+declare const TableHeader: import("svelte").Component<IProps, {}, "data">;
 type TableHeader = ReturnType<typeof TableHeader>;
 export default TableHeader;
