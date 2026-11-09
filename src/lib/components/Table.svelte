@@ -14,8 +14,7 @@
 
 	let { title, data = $bindable([]), titles, grows, _class, _style }: IProps = $props();
 
-	// let dataState = $state(data.map((v) => Object.values(v)));
-	let dataState = $state(Object.values(data));
+	let dataState = $derived(Object.values(data));
 	let titlesState = $state(titles || Object.keys(data[0]).map((v) => v));
 	let growsState = $state(grows || Object.keys(dataState[0]).map((v) => 1));
 
@@ -30,22 +29,23 @@
 		const keys = Object.keys(dataState[0]);
 		const sortKey = keys[filter.sort.i];
 
-		if (filter.sort.direction === 'down') {
-			return [...dataState].sort((a, b) => {
-				return String(a[sortKey as keyof typeof a]).localeCompare(
-					String(b[sortKey as keyof typeof b])
-				);
-			});
-			// return dataState.sort((a, b) =>
-			// 	String(a[filter.sort.i]).localeCompare(String(b[filter.sort.i]))
-			// );
-		}
-		if (filter.sort.direction === 'up') {
-			return [...dataState].sort((a, b) => {
-				return String(b[sortKey as keyof typeof b]).localeCompare(
-					String(a[sortKey as keyof typeof a])
-				);
-			});
+		try {
+			if (filter.sort.direction === 'down') {
+				return [...dataState].sort((a, b) => {
+					return String(a[sortKey as keyof typeof a]).localeCompare(
+						String(b[sortKey as keyof typeof b])
+					);
+				});
+			}
+			if (filter.sort.direction === 'up') {
+				return [...dataState].sort((a, b) => {
+					return String(b[sortKey as keyof typeof b]).localeCompare(
+						String(a[sortKey as keyof typeof a])
+					);
+				});
+			}
+		} catch (error) {
+			return dataState;
 		}
 	});
 
