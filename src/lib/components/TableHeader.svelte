@@ -14,7 +14,7 @@
 	}
 
 	let {
-		data,
+		data = $bindable([]),
 		grows,
 		filter,
 		onClickPrev,
