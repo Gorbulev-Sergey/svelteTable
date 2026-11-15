@@ -4,7 +4,7 @@
 
 	let data = $state([
 		{
-			index: 55,
+			index: 19,
 			uid: crypto.randomUUID(),
 			name: 'Max',
 			email: 'max@rr.r',
@@ -16,7 +16,7 @@
 			}
 		},
 		{
-			index: 49,
+			index: 2,
 			uid: crypto.randomUUID(),
 			name: 'Helen',
 			email: 'helen@rr.r',
