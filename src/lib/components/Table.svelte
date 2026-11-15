@@ -32,16 +32,20 @@
 		try {
 			if (filter.sort.direction === 'down') {
 				return [...dataState].sort((a, b) => {
-					return String(a[sortKey as keyof typeof a]).localeCompare(
-						String(b[sortKey as keyof typeof b])
-					);
+					if (typeof a === 'number' && typeof b === 'number') return a - b;
+					else
+						return String(a[sortKey as keyof typeof a]).localeCompare(
+							String(b[sortKey as keyof typeof b])
+						);
 				});
 			}
 			if (filter.sort.direction === 'up') {
 				return [...dataState].sort((a, b) => {
-					return String(b[sortKey as keyof typeof b]).localeCompare(
-						String(a[sortKey as keyof typeof a])
-					);
+					if (typeof a === 'number' && typeof b === 'number') return b - a;
+					else
+						return String(b[sortKey as keyof typeof b]).localeCompare(
+							String(a[sortKey as keyof typeof a])
+						);
 				});
 			}
 		} catch (error) {
