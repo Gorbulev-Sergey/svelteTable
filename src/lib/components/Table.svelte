@@ -25,19 +25,30 @@
 		}
 	});
 	let dataStateFiltered = $derived.by(() => {
+		const keys = Object.keys(dataState[0]);
+		const sortKey = keys[filter.sort.i];
+
 		try {
 			if (filter.sort.direction === 'down') {
-				return [...dataState].sort((a, b) =>
-					String(a[filter.sort.i]).localeCompare(String(b[filter.sort.i]))
-				);
+				return [...dataState].sort((a, b) => {
+					if (typeof a === 'number' && typeof b === 'number') return a - b;
+					else
+						return String(a[sortKey as keyof typeof a]).localeCompare(
+							String(b[sortKey as keyof typeof b])
+						);
+				});
 			}
 			if (filter.sort.direction === 'up') {
-				return [...dataState].sort((a, b) =>
-					String(b[filter.sort.i]).localeCompare(String(a[filter.sort.i]))
-				);
+				return [...dataState].sort((a, b) => {
+					if (typeof a === 'number' && typeof b === 'number') return b - a;
+					else
+						return String(b[sortKey as keyof typeof b]).localeCompare(
+							String(a[sortKey as keyof typeof a])
+						);
+				});
 			}
 		} catch (error) {
-			return [...dataState];
+			return dataState;
 		}
 	});
 
