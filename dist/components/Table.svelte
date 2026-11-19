@@ -32,7 +32,8 @@
 		try {
 			if (filter.sort.direction === 'down') {
 				return [...dataState].sort((a, b) => {
-					if (typeof a === 'number' && typeof b === 'number') return a - b;
+					if (typeof a[sortKey as keyof typeof a] === 'number')
+						return a[sortKey as keyof typeof a] - b[sortKey as keyof typeof b];
 					else
 						return String(a[sortKey as keyof typeof a]).localeCompare(
 							String(b[sortKey as keyof typeof b])
@@ -41,7 +42,8 @@
 			}
 			if (filter.sort.direction === 'up') {
 				return [...dataState].sort((a, b) => {
-					if (typeof a === 'number' && typeof b === 'number') return b - a;
+					if (typeof a[sortKey as keyof typeof a] === 'number')
+						return b[sortKey as keyof typeof b] - a[sortKey as keyof typeof a];
 					else
 						return String(b[sortKey as keyof typeof b]).localeCompare(
 							String(a[sortKey as keyof typeof a])

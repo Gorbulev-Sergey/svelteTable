@@ -32,7 +32,6 @@
 		try {
 			if (filter.sort.direction === 'down') {
 				return [...dataState].sort((a, b) => {
-					console.log(a);
 					if (typeof a[sortKey as keyof typeof a] === 'number')
 						return a[sortKey as keyof typeof a] - b[sortKey as keyof typeof b];
 					else
